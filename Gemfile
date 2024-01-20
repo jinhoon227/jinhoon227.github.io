@@ -24,3 +24,4 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 # google link
 # https://search.google.com/search-console?resource_id=https%3A%2F%2Fjinhoon227.github.io%2F
+# https://analytics.google.com/analytics/web/provision/#/provision/create
