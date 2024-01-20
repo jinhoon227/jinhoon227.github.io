@@ -74,7 +74,7 @@ theme_mode: # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/profile/profile1.jpg
+avatar:  /assets/img/profile/profile1.jpg
 # '/commons/avatar.jpg'
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
@@ -160,7 +160,7 @@ defaults:
       layout: page
       permalink: /:title/
   - scope:
-      path: https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/profile/profile1.jpg
+      path: /assets/img/profile/profile1.jpg
     values:
       swcache: true
   - scope:
