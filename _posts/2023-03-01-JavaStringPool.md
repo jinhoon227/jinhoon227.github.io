@@ -26,7 +26,7 @@ System.out.println(newString1 == newString2); // false
 참고로 `==` 연산은 객체끼리 사용하면 값을 비교하는게 아닌 같은 메모리를 참조하는지 비교하는 연산이다.
 만약 `String` 에서 메모리 주소가아닌 실제값을 비교하고 싶다면 `equals()` 함수를 이용하면 된다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/cs/stringpool1.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/cs/stringpool1.png?raw=true)
 
 먼저 `String` 객체를 만들면 stack Memory 에 차곡차곡 쌓인다.(`literalString1`, `literalString2`, `newString1`, `newString2`)
 그리고 stack Memory 에서 각 객체가 Heap Memory 를 가리키는데 `new` 연산과 리터럴은 여기서

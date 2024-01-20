@@ -12,7 +12,7 @@ tags : java spring cicd
 
 ## CD Architecture
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-1.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-1.png?raw=true)
 
 개발(DEVELOP)환경에서 구축할 CD 아키텍처는 위와 같다.
 개발자가 Github 에 Develop 브랜치에서 Push 를 할경우에 Github Action 이 작동한다. Github Action 에서는 Docker 를 이용해 이미지를 만들고 Docker Hub 에 이미지를 푸시한다. EC2 에서는 Docker Hub 에서 이미지를 가져온다(Pull). EC2 에 있는 docker-compose 파일을 실행해 가져온 이미지를 컨테이너화 한다. 이렇게 Spring boot 를 EC2 에서 실행시키고, Spring boot 의 DB 는 AWS 의 RDS-MySQL 를 사용한다.
@@ -150,13 +150,13 @@ Github Action 에서 Repository 를 가져오는 과정이다. 여기서 눈여�
 
 처음 서브모듈을 사용했을때 설정을 잘못해서 적용이 제대로 안된적이 있다. 적용이 안되면 Github Action 에서 checkout 할 때 못가져온다. 아래 사진처럼 화살표 폴더가 떠야 적용이 된거다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-2.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-2.png?raw=true)
 
 ### 주의점2
 
 `token: ${{secrets.ACTION_TOKEN}}` 에서 토큰을 사용하는데 이 토큰은 Settings > Developer Settings > Personal access tokens > Tokens (classic) 에서 만든 토큰이다. 이 토큰은 만료날짜를 무한으로 하면 적용이 안된다는 버그가 있다. 토큰 설정은 아래와 같다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-3.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-3.png?raw=true)
 
 ### 주의점3
 
@@ -347,7 +347,7 @@ Spring Boot 3.2 버전을 이상을 사용한다면 `org.springframework.boot.lo
 
 여기서도 `-Dspring.profiles.active=${ACTIVE_SPRING_PROFILE}` 사용해 개발모드로 설정해준다. Dockerfile.dev 첫번째 버전에서는 Dockerfile 에서 이를 명시해주었고 두번째 버전에서도 이처럼 사용할려했는데, 아래와같이 dev 설정을 찾지못하는 문제가 발생했다. 그래서 이를 다음에나오는 docker-compose 에 명시해주는 해결되었다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-4.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2-4.png?raw=true)
 
 ## docker-compose-dev
 

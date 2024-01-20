@@ -13,7 +13,7 @@ Github 에 push, pull request 가 발생하면 자동으로 Test 를 수행하�
 
 Github Action 에서 테스트를 적용할려면 `.github` 폴더 안에 `workflows` 폴더를 만들어줘야 한다. 해당 폴더를 만들고 안에 `yml` 파일을 넣어두면 조건에 따라서 알아서 실행해준다. 테스트 CI 를 해줄 `action-test.yml` 파일을 `.github/workflows/action-test.yml` 에 넣어주었다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga1.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga1.png?raw=true)
 
 
 ### 파일 코드
@@ -153,11 +153,11 @@ on 은 어떤 조건에서 해당 파일이 작동할지 적어주는 것이다.
 
 테스트를 수행한다! 나는 여기서 에러가 발생했는데 아래와 같다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga2.png?raw=true)
 
 `contextLoads() FAILED` 에러가 발생했는데, 구글링해보니 워낙 원인이 많은에러라 찾기 어려웠다. 좀 더 Spring Boot 관련해서 찾아보니 DB 설정이 안되어있어서 발생한 에러라는 글이 있었다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga3.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga3.png?raw=true)
 
 `@SpringBootTest` 어노테이션이 달려있으면 DB 에 연결해서 테스트를 진행하는데 파일에서는 따로 DB 설정을 하지 않았기에 발생한 에러다. 만약 MySql 을 사용한다면 MySql DB 설정을 따로 파일에 명시해 주어야 한다. 하지만 단위테스트를 할때 MySql 보다는 h2 인메모리 DB 를 사용하는게 가볍기 때문에 빌드도 빨리 할 수 있다. 그래서 h2 DB 를 사용하기위해 추가로 설정을 해주었다.
 
@@ -242,11 +242,11 @@ H2 는 매우 가벼운 DB 라 속도가 빠르다는 장점이 있지만, 그�
 
 해당 코드는 옵션이다. 위의 옵션을 사용하면 아래와 같이 테스트 통과가 어떻게 됐는지 알려준다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga4.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga4.png?raw=true)
 
 위의 시각화 기능 사용중에 아래 에러가 발생했다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga5.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga5.png?raw=true)
 
 `github.GithubException.GithubException: 403 {"message": "Resource not accessible by integration", "documentation_url": "https://docs.github.com/rest/checks/runs#create-a-check-run"}` 리소스에 접근할 수 없다고 하는걸 보고 권한문제임을 알 수 있다. 아무래도 보고서를 작성하다보니 쓰기권한이 필요했다.
 그래서 위에 아래와 같은 코드를 추가해주었다.
@@ -265,13 +265,13 @@ H2 는 매우 가벼운 DB 라 속도가 빠르다는 장점이 있지만, 그�
 
 해당 코드도 옵션이다. 위의 옵션을 사용하면 테스트 실패시 아래 사진처럼 어떤 라인이 잘못됐는지 알려준다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga8.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga8.png?raw=true)
 
 ## 환경 변수 추가 설정
 
 다시 한번 `contextLoads() FAILED` 에러가 발생했다!
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga9.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga9.png?raw=true)
 
 발생 이유는 다음과 같았다. 해당 어플리케이션에서는 외부 API 를 요청한다. 그리고 외부 API 를 요청할때 KEY 를 발급해서 해당 키를 주면 요청에 응답해준다. 문제는 이 KEY 를 아무생각 없이 github 에 올리면 다른 사람도 사용할 수 있다. 유료 API 라면 다른 사람이 무분별한 사용으로 요금폭탄을 맞을 수 도 있는것이다. 그래서 이런 중요한 키 정보들은 파일을 따로 관리하여 github 에 올리지 않는다. 여기서 문제가 생긴다.. github action 에서 해당 키 값이 없으니 이를 테스트하면 외부 API 를 요청할 수 없어 테스트 통과가 안된다는점이다.
 
@@ -301,7 +301,7 @@ google-key: googlesecretkey
 github action 에서는 참고할 env.yml 이 없다. 그래서 workflow 진행과정에서 env.yml 을 만들것이다. 그렇기에 github action 에서 사용할 변수는 repository secrets 에 등록해야 된다.
 repository secrets 등록방법은 github > settings > 좌측메뉴에서 Secrets and variables > Actions 들어가면 repository secrets 가 있고 환경변수명을 정해주고 비밀키를 넣어주면된다. 아래사진처럼 GOOGLE_API_KEY 로 환경변수를 설정해주었다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga10.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga10.png?raw=true)
 
 repository secrets 키는 다른사람이 볼 수 없다. 그래서 여기에 키 값을 등록하고 github action 에서 사용한다. github action 에서는 위의 repository secrets 에 등록해둔 키 값으로 env.yml 을 만드는 것이다. 그러면 github action 에서도 문제없이 테스트와 빌드를 할 수 있다.
 
@@ -535,11 +535,11 @@ Github 사이트에서 설정한다.
 
 위의 경로로 들어가 설정해둔 룰이 있다면 편집해주고 없다면 Add rule 을 해준다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga6.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga6.png?raw=true)
 
 그 다음 통과해주어야할 설정을 검색해서 넣어주면 된다. 그러면 테스트 실패시 merge 가 자동으로 막힌다!
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga7.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/ci/ga7.png?raw=true)
 
 
 ## Reference

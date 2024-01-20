@@ -172,7 +172,7 @@ public class UserRepository {
 `fetch join` 을 하면 주체가 되는 엔티티(User) 와 join 의 대상이 되는 엔티티(UserQuestion) 에 대한 모든 필드를
 select 해서 가져오는 이유가 무엇이라고 생각하는가? 바로 DB 와 엔티티사이에 일관성을 지키기 위해서다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/spring/develop/fetchjoin1.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/spring/develop/fetchjoin1.png?raw=true)
 
 DB 에 user_id = 1 인 User 에 대해 3개의 UserQuestion 데이터가 있다고 해보자. 
 
@@ -239,7 +239,7 @@ User 에 대해 DB 에서 조회를 해도 영속화된 엔티티가 우선으�
 그리고 fetch join 도 `left join fetch` 를 사용해 left outer join 효과를 누릴 수 있다.
 하지만 `left join fetch` 도 일관성을 해칠 수 있는데 다음과 같은 경우다.
 
-<img src="https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/spring/develop/fetchjoin2.png" alt="이미지">
+![이미지](https://github.com/jinhoon227/jinhoon227.github.io/blob/main/assets/img/posts/spring/develop/fetchjoin2.png?raw=true)
 
 ```java
 public class UserQuestionRepository {
